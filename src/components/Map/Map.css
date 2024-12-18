@@ -1,0 +1,47 @@
+.map-container {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+.custom-tooltip {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.custom-tooltip .leaflet-tooltip-content {
+    white-space: nowrap;
+}
+
+.leaflet-tooltip-top:before {
+    border-top-color: rgba(255, 255, 255, 0.9);
+}
+.device-table-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+}
+
+.signal-indicator {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell:focus,
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+    outline: none !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
+.MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within {
+    outline: none !important;
+}
