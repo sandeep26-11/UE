@@ -3,11 +3,9 @@ import {
     DataGrid, 
     GridColDef,
     GridRenderCellParams,
-    GridValueGetterParams,
     GridToolbar,
     GridColumnVisibilityModel
 } from '@mui/x-data-grid';
-
 import { Box } from '@mui/material';
 import { DeviceData } from '../../types';
 import { getSignalColor } from '../../utils/signalColors';
@@ -20,12 +18,27 @@ interface DeviceTableProps {
 export const DeviceTable: React.FC<DeviceTableProps> = ({ devices, onDeviceClick }) => {
     const [columnVisibilityModel, setColumnVisibilityModel] = useState<GridColumnVisibilityModel>({});
 
+    const processedRows = devices.map((device, index) => ({
+        id: device.ip || `row-${index}`,
+        signalStrength: device.rsrp,
+        ip: device.ip,
+        location: `${device.latitude}, ${device.longitude}`,
+        distance: device.distance?.toFixed(2) || '',
+        throughput: device.throughput,
+        rsrp: device.rsrp,
+        rsrq: device.rsrq,
+        pci: device.pci,
+        arfcn: device.arfcn,
+        latitude: device.latitude,
+        longitude: device.longitude
+    }));
+
     const columns: GridColDef[] = [
         { 
             field: 'signalStrength', 
             headerName: 'Signal',
             width: 70,
-            renderCell: (params: GridRenderCellParams<DeviceData>) => (
+            renderCell: (params: GridRenderCellParams) => (
                 <Box
                     sx={{
                         width: 20,
@@ -39,74 +52,60 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({ devices, onDeviceClick
         { 
             field: 'ip', 
             headerName: 'IP Address', 
-            width: 130,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => params.row.ip
+            width: 130
         },
         {
             field: 'location',
             headerName: 'Location',
-            width: 200,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => 
-                `${params.row.latitude}, ${params.row.longitude}`
+            width: 200
         },
         {
             field: 'distance',
             headerName: 'Distance (km)',
-            width: 130,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => 
-                params.row.distance?.toFixed(2) || ''
+            width: 130
         },
         {
             field: 'throughput',
             headerName: 'Throughput (Mbps)',
-            width: 150,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => 
-                params.row.throughput
+            width: 150
         },
         {
             field: 'rsrp',
             headerName: 'RSRP (dBm)',
-            width: 130,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => 
-                params.row.rsrp
+            width: 130
         },
         {
             field: 'rsrq',
             headerName: 'RSRQ (dB)',
-            width: 130,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => 
-                params.row.rsrq
+            width: 130
         },
         {
             field: 'pci',
             headerName: 'PCI',
-            width: 100,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => params.row.pci
+            width: 100
         },
         {
             field: 'arfcn',
             headerName: 'ARFCN',
-            width: 100,
-            valueGetter: (params: GridValueGetterParams<DeviceData>) => params.row.arfcn
+            width: 100
         }
     ];
-
-    const processedRows = devices.map((device, index) => ({
-        id: device.ip || `row-${index}`,
-        ...device
-    }));
 
     return (
         <Box sx={{ height: 600, width: '100%' }}>
             <DataGrid
                 rows={processedRows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10, 25, 50]}
+                initialState={{
+                    pagination: {
+                        paginationModel: { pageSize: 10, page: 0 },
+                    },
+                }}
+                pageSizeOptions={[10, 25, 50]}
                 checkboxSelection
-                disableSelectionOnClick
-                components={{
-                    Toolbar: GridToolbar
+                disableRowSelectionOnClick
+                slots={{
+                    toolbar: GridToolbar
                 }}
                 columnVisibilityModel={columnVisibilityModel}
                 onColumnVisibilityModelChange={(newModel) => {
@@ -123,7 +122,6 @@ export const DeviceTable: React.FC<DeviceTableProps> = ({ devices, onDeviceClick
                     }
                 }}
             />
-
         </Box>
     );
 };
