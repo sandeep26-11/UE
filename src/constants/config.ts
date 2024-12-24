@@ -6,14 +6,13 @@ export const MAP_CONFIG = {
     maxZoom: 18,
     tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 };
-
 export const ICONS = {
     tower: {
         size: [32, 32],
-        url: process.env.PUBLIC_URL + '/tower-icon.png'
+        url: '/tower-icon.png'
     },
     device: {
-        size: [24, 24],
-        url: process.env.PUBLIC_URL + '/device-icon.png'
+       size: [32, 32],
+        url: '/device-icon.png'
     }
 };
