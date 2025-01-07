@@ -2,7 +2,7 @@ import { DeviceData } from '../types';
 
 export class UDPService {
     private messageCallback: (data: DeviceData) => void;
-    private eventSource!: EventSource;  // Using definite assignment assertion
+    private eventSource!: EventSource;  // Definite assignment assertion
 
     constructor(port: number, onMessage: (data: DeviceData) => void) {
         this.messageCallback = onMessage;
@@ -10,8 +10,9 @@ export class UDPService {
     }
 
     private setupEventSource(port: number) {
-        this.eventSource = new EventSource(`/api/udp-events`);
-        
+        // Connect to backend running on localhost:4047
+        this.eventSource = new EventSource(`http://localhost:${port}/api/udp-events`);
+
         this.eventSource.onmessage = (event) => {
             try {
                 const data = JSON.parse(event.data);

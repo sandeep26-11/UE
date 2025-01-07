@@ -1,28 +1,14 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon, PointTuple } from 'leaflet';
+import { MAP_ICONS } from '../../utils/iconLoader';
 import { DeviceData, Tower } from '../../types';
-import { MAP_CONFIG, ICONS } from '../../constants/config';
+import { MAP_CONFIG } from '../../constants/config';
 import './Map.css';
 
 interface MapProps {
-    towers: Tower[];  // Changed to accept array of towers
+    towers: Tower[];
     devices: DeviceData[];
     onDeviceClick: (device: DeviceData) => void;
 }
-
-const towerIcon = new Icon({
-    iconUrl: ICONS.tower.url,
-    iconSize: ICONS.tower.size as PointTuple,
-    iconAnchor: [ICONS.tower.size[0] / 2, ICONS.tower.size[1]],
-    popupAnchor: [0, -ICONS.tower.size[1]]
-});
-
-const deviceIcon = new Icon({
-    iconUrl: ICONS.device.url,
-    iconSize: ICONS.device.size as PointTuple,
-    iconAnchor: [ICONS.device.size[0] / 2, ICONS.device.size[1]],
-    popupAnchor: [0, -ICONS.device.size[1]]
-});
 
 export const Map: React.FC<MapProps> = ({ towers, devices, onDeviceClick }) => {
     const validDevices = devices.filter(
@@ -50,9 +36,9 @@ export const Map: React.FC<MapProps> = ({ towers, devices, onDeviceClick }) => {
                 
                 {towers.map((tower, index) => (
                     <Marker 
-                        key={`tower-${index}`}
+                        key={`tower-${tower.pci}-${index}`}
                         position={[tower.latitude, tower.longitude]} 
-                        icon={towerIcon}
+                        icon={MAP_ICONS.tower}
                     >
                         <Popup>
                             <h3>Network Tower {tower.pci}</h3>
@@ -62,9 +48,9 @@ export const Map: React.FC<MapProps> = ({ towers, devices, onDeviceClick }) => {
 
                 {validDevices.map((device) => (
                     <Marker
-                        key={`marker-${device.ip}-${device.latitude}-${device.longitude}`}
+                        key={`device-${device.ip}-${Date.now()}`}
                         position={[device.latitude, device.longitude]}
-                        icon={deviceIcon}
+                        icon={MAP_ICONS.device}
                         eventHandlers={{
                             click: () => onDeviceClick(device)
                         }}

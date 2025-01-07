@@ -8,11 +8,12 @@ export const MAP_CONFIG = {
 };
 export const ICONS = {
     tower: {
-        size: [32, 32],
-        url: '/tower-icon.png'
+        size: [32, 32] as [number, number],
+         url: '/assets/tower-icon.png'
     },
     device: {
-       size: [32, 32],
-        url: '/device-icon.png'
+        size: [24, 24] as [number, number],
+        url: '/assets/device-icon.png'
     }
+
 };

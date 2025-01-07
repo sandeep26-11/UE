@@ -4,7 +4,6 @@ import { Map } from './components/Map/Map';
 import { DeviceModal } from './components/DeviceModal/DeviceModal';
 import { UDPService } from './services/UDPService';
 import { DeviceData } from './types';
-import { UDP_PORT } from './constants/config';
 import { calculateDistance } from './utils/calculateDistance';
 import towerLocations from './data/towerLocation.json';
 import './App.css';
@@ -14,7 +13,9 @@ function App() {
     const [selectedDevice, setSelectedDevice] = useState<DeviceData | null>(null);
 
     useEffect(() => {
-        const udpService = new UDPService(UDP_PORT, (newData) => {
+        // Initialize UDP service to listen on backend port 4047
+        const udpService = new UDPService(4047, (newData) => {
+            console.log('Received new data:', newData);  
             setDevices(prevDevices => {
                 const index = prevDevices.findIndex(d => d.ip === newData.ip);
                 const matchingTower = towerLocations.towers.find(t => t.pci === newData.pci);

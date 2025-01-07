@@ -7,7 +7,11 @@ const PORT = 8000;
 const HOST = '0.0.0.0';
 
 let clients = new Set();
+const cors = require('cors');
+app.use(cors());  // This will enable CORS for all routes
 
+
+// API to send UDP data via Server-Sent Events (SSE)
 app.get('/api/udp-events', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
@@ -20,9 +24,10 @@ app.get('/api/udp-events', (req, res) => {
     });
 });
 
+// UDP message handler
 server.on('message', (message, remote) => {
     console.log(`Received data from ${remote.address}:${remote.port}`);
-    
+
     try {
         const jsonData = JSON.parse(message.toString());
         console.log('Parsed JSON:', jsonData);
@@ -36,18 +41,22 @@ server.on('message', (message, remote) => {
     }
 });
 
+// Server listening on UDP port
 server.on('listening', () => {
     const address = server.address();
     console.log(`UDP server listening on ${address.address}:${address.port}`);
 });
 
+// Error handling
 server.on('error', (err) => {
     console.error('Server error:', err.message);
     server.close();
 });
 
+// Bind the UDP server
 server.bind(PORT, HOST);
 
-app.listen(3000, () => {
-    console.log('HTTP server listening on port 3000');
+// Start HTTP server to handle requests
+app.listen(4047, () => {
+    console.log('HTTP server listening on port 4047');
 });
