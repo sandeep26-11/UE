@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+# UE Devices Map Viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a real-time web application built with React to display User Equipment (UE) devices on an interactive OpenStreetMap. The project provides both a visual map view and a tabular view of connected network devices.
 
-## Available Scripts
+## 🌐 Live Map + Realtime Devices
 
-In the project directory, you can run:
+The application uses a modular structure with reusable components like `DeviceCard`, `DeviceModal`, `DeviceTable`, and `Map` to fetch and render live UE device information.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📁 Project Structure
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+src/
+├── components/
+│ ├── DeviceCard/ # Card layout for device info
+│ ├── DeviceModal/ # Modal popup for device details
+│ ├── DeviceTable/ # Tabular data of UE devices
+│ └── Map/ # Map component (OpenStreetMap)
+├── hooks/ # Custom React hooks
+├── services/ # API interaction and device services
+├── types/ # TypeScript types
+├── utils/ # Utility functions
+├── App.tsx # Main application entry
+└── index.tsx # React entry point
 
-### `npm test`
+yaml
+Copy
+Edit
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js (v16 or above)
+- npm (v8 or above)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+Clone the repo and install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+git clone https://github.com/sandeep26-11/UE.git
+cd UE
+npm install
+npm start
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+below is the screenshot of the project
+![image](https://github.com/user-attachments/assets/8dc7c680-24c4-430a-9f16-24513e46da2d)
