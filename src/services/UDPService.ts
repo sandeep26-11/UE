@@ -29,6 +29,6 @@ export class UDPService {
     }
 
     public close() {
-        this.eventSource.close();
+        this.eventSource.close(); 
     }
 }

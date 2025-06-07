@@ -2,6 +2,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { MAP_ICONS } from '../../utils/iconLoader';
 import { DeviceData, Tower } from '../../types';
 import { MAP_CONFIG } from '../../constants/config';
+import 'leaflet/dist/leaflet.css';
+
 import './Map.css';
 
 interface MapProps {
